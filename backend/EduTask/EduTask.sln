@@ -5,6 +5,8 @@ VisualStudioVersion = 17.11.35312.102
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EduTask.Api", "EduTask.Api\EduTask.Api.csproj", "{882C3B14-9ACA-40D9-AFCD-39026A4CCF26}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EduTask.Tests", "EduTask.Tests\EduTask.Tests.csproj", "{B5993867-882F-4E8E-89C6-5DE721698590}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{882C3B14-9ACA-40D9-AFCD-39026A4CCF26}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{882C3B14-9ACA-40D9-AFCD-39026A4CCF26}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{882C3B14-9ACA-40D9-AFCD-39026A4CCF26}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B5993867-882F-4E8E-89C6-5DE721698590}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B5993867-882F-4E8E-89C6-5DE721698590}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B5993867-882F-4E8E-89C6-5DE721698590}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B5993867-882F-4E8E-89C6-5DE721698590}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
