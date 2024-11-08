@@ -1,0 +1,44 @@
+<div class="background flex justify-content-center align-items-center w-full h-screen">
+    <div class="w-30rem h-30rem bg-white shadow-8 border-round-xl border-3 border-blue-800 text-blue-800 font-semibold">
+        <div class="flex justify-content-center align-items-center mt-2">
+            <h1>Registration</h1>
+        </div>
+        <div class="flex justify-content-center align-items-center">
+            <div class="flex flex-column">
+                <label for="email" class="text-sm">Email</label>
+                <input type="text" class="w-20rem bg-blue-100 border-round-3xl border-none" pInputText
+                    formControlName="email" />
+            </div>
+        </div>
+        <div class="flex justify-content-center align-items-center mt-2">
+            <div class="flex flex-column">
+                <label for="firstName" class="text-sm">First Name</label>
+                <input type="text" class="w-20rem bg-blue-100 border-round-3xl border-none" pInputText
+                    formControlName="firstName" />
+            </div>
+        </div>
+        <div class="flex justify-content-center align-items-center mt-2">
+            <div class="flex flex-column">
+                <label for="lastName" class="text-sm">Last Name</label>
+                <input type="text" class="w-20rem bg-blue-100 border-round-3xl border-none" pInputText
+                    formControlName="lastName" />
+            </div>
+        </div>
+        <div class="flex justify-content-center align-items-center mt-2">
+            <div class="flex flex-column">
+                <label for="password" class="text-sm">Password</label>
+                <p-password [(ngModel)]="value" [toggleMask]="true"
+                    inputStyleClass="w-20rem bg-blue-100 border-round-3xl border-none" />
+            </div>
+        </div>
+        <div class="flex justify-content-center align-items-center mt-4">
+            <button pButton pRipple
+                class="flex justify-content-center align-items-center w-20rem h-2rem border-round-2xl border-none bg-blue-800 text-white text-lg font-semibold">Create
+                Account</button>
+        </div>
+        <div class="flex justify-content-center align-items-center mt-2">
+            <button pButton pRipple (click)="onBack()"
+                class="flex justify-content-center align-items-center w-7rem h-2rem border-none bg-white text-blue-800 text-lg font-semibold">Back</button>
+        </div>
+    </div>
+</div>
