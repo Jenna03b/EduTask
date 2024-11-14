@@ -1,0 +1,23 @@
+<div class="bg-blue-900 flex justify-content-center align-items-center w-full h-screen p-4">
+    <div class="flex flex-wrap flex-column h-full w-20rem">
+        <ul class="flex flex-column flex-wrap flex-auto justify-content-start pl-0">
+            <div class="bg-blue-700 flex justify-content-center align-items-center w-5rem h-5rem mb-7 ml-3">LOGO</div>
+            <ng-container *ngFor="let item of menu; let i = index">
+                <button pButton pRipple [routerLink]="item.routerLink"
+                    class="flex justify-content-start align-items-center bg-transparent hover:bg-white hover:shadow-8 hover:text-blue-900 border-round-xl border-none h-3rem mb-3 text-blue-200 text-lg font-bold">
+                    <i *ngIf="item.icon" [ngClass]="item.icon"
+                        class="flex justify-content-start align-items-center mx-3 "></i>
+                    {{ item.label }}
+                </button>
+            </ng-container>
+            <li class="flex flex-wrap justify-content-start mt-auto">
+                <button pButton pRipple (click)="onLogout()"
+                    class="flex justify-content-start align-items-center bg-transparent hover:text-blue-200 border-round-xl border-none h-3rem mb-3 text-blue-600 text-lg font-bold"><i
+                        class="pi pi-sign-out mx-3 font-bold"></i>Logout</button>
+            </li>
+        </ul>
+    </div>
+    <div class="bg-blue-700 shadow-8 border-round-xl w-full h-full ml-4 p-4">
+        <router-outlet></router-outlet>
+    </div>
+</div>

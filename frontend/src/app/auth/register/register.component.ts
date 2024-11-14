@@ -1,9 +1,11 @@
 import { Component } from "@angular/core";
 import { PasswordModule } from 'primeng/password';
-import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { InputTextModule } from 'primeng/inputtext';
 import { Router } from "@angular/router";
 import { ButtonModule } from "primeng/button";
+import { AuthService } from "../../services/auth.service";
+import { RegisterUserData } from "../../models/register-user-data";
 
 @Component({
     selector: 'app-register',
@@ -14,17 +16,38 @@ import { ButtonModule } from "primeng/button";
   })
   export class RegisterComponent{
     value!: string;
-    formGroup: FormGroup | undefined;
+    formGroup: FormGroup;
 
     constructor(
-      private router: Router
+      private router: Router, 
+      private fb: FormBuilder, 
+      private authService: AuthService
       ) 
-    {}
+    {
+      this.formGroup = this.fb.group({
+        email: ['', [Validators.required, Validators.email]],
+        firstName: ['', [Validators.required, Validators.minLength(3)]],
+        lastName: ['', [Validators.required, Validators.minLength(3)]],
+        phoneNumber: ['', [Validators.required, Validators.minLength(9)]],
+        password: ['', [Validators.required, Validators.minLength(6)]],
+        role: ['Student', Validators.required]
+      });
+    }
 
-    ngOnInit() {
-        this.formGroup = new FormGroup({
-          email: new FormControl<string | null>(null)
-        });
+    onSubmit(): void {
+      // if (this.formGroup.valid) {
+      //   const userData: RegisterUserData = this.formGroup.value;
+      //   this.authService.register(userData).subscribe(
+      //     response => {
+      //       console.log('Registration successful:', response);
+      //       alert('Registration successful!');
+      //     },
+      //     error => {
+      //       console.error('Registration failed:', error);
+      //       alert('Registration failed. Please try again.');
+      //     }
+      //   );
+      // }
     }
 
     onBack() {

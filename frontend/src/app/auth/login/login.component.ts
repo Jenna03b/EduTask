@@ -1,9 +1,11 @@
 import { Component } from "@angular/core";
 import { PasswordModule } from 'primeng/password';
-import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
 import { Router } from "@angular/router";
+import { AuthService } from "../../services/auth.service";
+import { LoginUserData } from "../../models/login-user-data";
 
 @Component({
     selector: 'app-login',
@@ -14,21 +16,42 @@ import { Router } from "@angular/router";
   })
   export class LoginComponent{
     value!: string;
-    formGroup: FormGroup | undefined;
+    // formGroup: FormGroup;
 
     constructor(
-    private router: Router
-    ) {}
-
-    ngOnInit() {
-        this.formGroup = new FormGroup({
-          email: new FormControl<string | null>(null)
-        });
+    private router: Router, 
+    private fb: FormBuilder, 
+    private authService: AuthService
+    ) {
+      // this.formGroup = this.fb.group({
+      //   email: ['', [Validators.required, Validators.email]],
+      //   password: ['', [Validators.required, Validators.minLength(6)]]
+      // });
     }
 
-    onSubmit(): void {}
+    // editForm = new FormGroup({
+    //   email: new FormControl(null, Validators.required),
+    //   password: new FormControl(null, Validators.required),
+    // });
+
+    onSubmit(): void {
+      // if (this.formGroup.valid) {
+      //   const userData: LoginUserData = this.formGroup.value;
+      //   this.authService.login(userData).subscribe(
+      //     response => {
+      //       console.log('Login successful:', response);
+      //       alert('Login successful!');
+            this.router.navigate(['/activity']);
+      //     },
+      //     error => {
+      //       console.error('Login failed:', error);
+      //       alert('Login failed. Please try again.');
+      //     }
+      //   );
+      // }
+    }
 
     onRegister() {
       this.router.navigate(['/register']);
     }
-  }
+  } 
