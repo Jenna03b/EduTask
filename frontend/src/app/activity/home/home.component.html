@@ -1,1 +1,36 @@
-<p>home works!</p>
+<div class="card">
+    <h2 class="text-blue-800">To Do</h2>
+    <p-table [value]="data" [paginator]="true" [rows]="10" [globalFilterFields]="['type', 'subject', 'topic', 'date']">
+        <!-- <ng-template pTemplate="caption">
+            <div class="table-header">
+                <span class="p-input-icon-left">
+                    <i class="pi pi-search"></i>
+                    <input pInputText type="text" placeholder="Wyszukaj..." (input)="onGlobalFilter($event)" />
+                </span>
+            </div>
+        </ng-template> -->
+
+        <ng-template pTemplate="header">
+            <tr>
+                <th pSortableColumn="type">Type <p-sortIcon field="type"></p-sortIcon></th>
+                <th pSortableColumn="subject">Subject <p-sortIcon field="subject"></p-sortIcon></th>
+                <th pSortableColumn="topic">Topic <p-sortIcon field="topic"></p-sortIcon></th>
+                <th pSortableColumn="date">Date <p-sortIcon field="date"></p-sortIcon></th>
+                <th>Actions</th>
+            </tr>
+        </ng-template>
+
+        <ng-template pTemplate="body" let-rowData>
+            <tr>
+                <td>{{ rowData.type }}</td>
+                <td>{{ rowData.subject }}</td>
+                <td>{{ rowData.topic }}</td>
+                <td>{{ rowData.date }}</td>
+                <td>
+                    <button pButton type="button" icon="pi pi-search"
+                        class="p-button-rounded p-button-success"></button>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>

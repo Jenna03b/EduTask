@@ -8,15 +8,15 @@ import { LoginUserData } from '../models/login-user-data';
   providedIn: 'root'
 })
 export class AuthService {
-  // private apiUrl = 'http://localhost:5000/api/auth';
+  private apiUrl = 'http://localhost:5114/api/Auth';
 
-  // constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) { }
 
-  // register(userData: RegisterUserData): Observable<any> {
-  //   return this.http.post(`${this.apiUrl}/register`, userData);
-  // }
+  register(userData: RegisterUserData): Observable<any> {
+    return this.http.post(`${this.apiUrl}/register`, userData);
+  }
 
-  // login(userData: LoginUserData): Observable<any> {
-  //   return this.http.post(`${this.apiUrl}/login`, userData);
-  // }
+  login(userData: LoginUserData): Observable<any> {
+    return this.http.post(`${this.apiUrl}/login`, userData);
+  }
 }

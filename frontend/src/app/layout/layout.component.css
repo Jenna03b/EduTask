@@ -1,0 +1,61 @@
+.background {
+  background-image: url("../../assets/icons/background.jpg");
+  background-position: bottom;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.menu-container {
+  transition: transform 0.3s ease-in-out;
+}
+
+.menu-hidden {
+  transform: translateX(-100%);
+}
+
+.content-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+}
+
+.menu-toggle-btn {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  z-index: 1000;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.menu-toggle-btn i {
+  font-size: 1.5rem;
+}
+
+@media (max-width: 768px) {
+  .menu-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    z-index: 999;
+    transform: translateX(-100%);
+    width: 16rem;
+    box-shadow: 2px 0 8px rgba(0, 0, 0, 0.2);
+    background-color: #ffffff;
+  }
+
+  .menu-hidden {
+    transform: translateX(-100%);
+  }
+
+  .menu-container:not(.menu-hidden) {
+    transform: translateX(0);
+  }
+
+  .content-container {
+    margin-left: 0;
+  }
+}

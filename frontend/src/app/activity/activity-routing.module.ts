@@ -22,6 +22,7 @@ const routes: Routes = [
     path: 'consultations',
     component: ConsultationsComponent,
   },
+  { path: '**', redirectTo: 'home' }
 ];
 
 @NgModule({

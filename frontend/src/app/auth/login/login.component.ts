@@ -16,39 +16,42 @@ import { LoginUserData } from "../../models/login-user-data";
   })
   export class LoginComponent{
     value!: string;
-    // formGroup: FormGroup;
+    formGroup: FormGroup;
 
     constructor(
     private router: Router, 
     private fb: FormBuilder, 
     private authService: AuthService
     ) {
-      // this.formGroup = this.fb.group({
-      //   email: ['', [Validators.required, Validators.email]],
-      //   password: ['', [Validators.required, Validators.minLength(6)]]
-      // });
+      this.formGroup = this.fb.group({
+        email: ['', [Validators.required, Validators.email]],
+        password: ['', [Validators.required, Validators.minLength(2)]]
+      });
     }
 
-    // editForm = new FormGroup({
-    //   email: new FormControl(null, Validators.required),
-    //   password: new FormControl(null, Validators.required),
-    // });
+    editForm = new FormGroup({
+      email: new FormControl(null, Validators.required),
+      password: new FormControl(null, Validators.required),
+    });
 
     onSubmit(): void {
-      // if (this.formGroup.valid) {
-      //   const userData: LoginUserData = this.formGroup.value;
-      //   this.authService.login(userData).subscribe(
-      //     response => {
-      //       console.log('Login successful:', response);
-      //       alert('Login successful!');
-            this.router.navigate(['/activity']);
-      //     },
-      //     error => {
-      //       console.error('Login failed:', error);
-      //       alert('Login failed. Please try again.');
-      //     }
-      //   );
-      // }
+      if (this.formGroup.valid) {
+        const loginData = {
+          email: this.formGroup.get('email')?.value,
+          password: this.formGroup.get('password')?.value
+      };
+        this.authService.login(loginData).subscribe(
+          response => {
+            console.log('Login successful:', response);
+            alert('Login successful!');
+            this.router.navigate(['/activity/home']);
+          },
+          error => {
+            console.error('Login failed:', error);
+            alert('Login failed. Please try again.');
+          }
+        );
+      }
     }
 
     onRegister() {

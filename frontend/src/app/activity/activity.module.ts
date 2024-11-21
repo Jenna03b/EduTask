@@ -7,6 +7,10 @@ import { ExamsComponent } from './exams/exams.component';
 import { ConsultationsComponent } from './consultations/consultations.component';
 import { ActivityRoutingModule } from './activity-routing.module';
 import { ButtonModule } from 'primeng/button';
+import { CalendarModule } from 'primeng/calendar';
+import { FormsModule } from '@angular/forms';
+import { TreeTableModule } from 'primeng/treetable';
+import { TableModule } from 'primeng/table';
 
 @NgModule({
   declarations: [
@@ -18,7 +22,11 @@ import { ButtonModule } from 'primeng/button';
   imports: [
     ActivityRoutingModule,
     CommonModule,
-    ButtonModule
+    ButtonModule,
+    CalendarModule,
+    FormsModule,
+    TreeTableModule,
+    TableModule
   ],
   exports: [],
 })

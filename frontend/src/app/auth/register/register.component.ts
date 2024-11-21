@@ -5,14 +5,14 @@ import { InputTextModule } from 'primeng/inputtext';
 import { Router } from "@angular/router";
 import { ButtonModule } from "primeng/button";
 import { AuthService } from "../../services/auth.service";
-import { RegisterUserData } from "../../models/register-user-data";
+import { DropdownModule } from 'primeng/dropdown';
 
 @Component({
     selector: 'app-register',
     templateUrl: './register.component.html',
     styleUrl: './register.component.scss',
     standalone: true,
-    imports: [FormsModule, ReactiveFormsModule, PasswordModule, InputTextModule, ButtonModule]
+    imports: [FormsModule, ReactiveFormsModule, PasswordModule, InputTextModule, ButtonModule, DropdownModule]
   })
   export class RegisterComponent{
     value!: string;
@@ -26,28 +26,34 @@ import { RegisterUserData } from "../../models/register-user-data";
     {
       this.formGroup = this.fb.group({
         email: ['', [Validators.required, Validators.email]],
-        firstName: ['', [Validators.required, Validators.minLength(3)]],
-        lastName: ['', [Validators.required, Validators.minLength(3)]],
-        phoneNumber: ['', [Validators.required, Validators.minLength(9)]],
-        password: ['', [Validators.required, Validators.minLength(6)]],
-        role: ['Student', Validators.required]
+        firstName: ['', [Validators.required, Validators.minLength(2)]],
+        lastName: ['', [Validators.required, Validators.minLength(2)]],
+        password: ['', [Validators.required, Validators.minLength(2)]],
+        phoneNumber: [''],
       });
     }
 
     onSubmit(): void {
-      // if (this.formGroup.valid) {
-      //   const userData: RegisterUserData = this.formGroup.value;
-      //   this.authService.register(userData).subscribe(
-      //     response => {
-      //       console.log('Registration successful:', response);
-      //       alert('Registration successful!');
-      //     },
-      //     error => {
-      //       console.error('Registration failed:', error);
-      //       alert('Registration failed. Please try again.');
-      //     }
-      //   );
-      // }
+      if (this.formGroup.valid) {
+        const userData = {
+          email: this.formGroup.get('email')?.value,
+          firstName: this.formGroup.get('firstName')?.value,
+          lastName: this.formGroup.get('lastName')?.value,
+          password: this.formGroup.get('password')?.value
+        };
+        console.log('Registering user:', userData);
+        this.authService.register(userData).subscribe(
+          response => {
+            console.log('Registration successful:', response);
+            alert('Registration successful!');
+            this.router.navigate(['/login']);
+          },
+          error => {
+            console.error('Registration failed:', error);
+            alert('Registration failed. Please try again.');
+          }
+        );
+      }
     }
 
     onBack() {

@@ -1,22 +1,25 @@
-﻿namespace EduTask.Api.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace EduTask.Api.Models
 {
-    public enum UserRole
-    {
-        Student,
-        Teacher
-    }
+    //public enum UserRole
+    //{
+    //    Student,
+    //    Teacher
+    //}
     public class User
     {
-
-        public string Email { get; private set; }
-        public string FirstName { get; private set; }
-        public string LastName { get; private set; }
-        public string PhoneNumber { get; private set; }
-        public string Password { get; private set; }
-        public UserRole Roles { get; private set; }
+        [Key]
+        public int Id { get; set; }
+        public string Email { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string PhoneNumber { get; set; } = string.Empty;
+        public string Password { get; set; }
+        //public UserRole Roles { get; set; }
         public string FullName => $"{FirstName} {LastName}";
 
-        public User(string email, string firstName, string lastName, string phoneNumber, string password, UserRole roles)
+        public User(int id, string email, string firstName, string lastName, string phoneNumber, string password)
         {
             SetEmail(email);
             IsEmailValid(email);
@@ -25,7 +28,7 @@
             SetFirstName(firstName);
             SetLastName(lastName);
             SetPhoneNumber(phoneNumber);
-            SetRole(roles);
+            //SetRole(roles);
         }
 
         public User()
@@ -91,9 +94,9 @@
             PhoneNumber = phoneNumber;
         }
 
-        public void SetRole(UserRole roles)
-        {
-            Roles = roles;
-        }
+        //public void SetRole(UserRole roles)
+        //{
+        //    Roles = roles;
+        //}
     }
 }

@@ -1,35 +1,78 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using EduTask.Api.Models;
 using EduTask.Api.Models.DTOs;
-using EduTask.Api.Services;
-using System.Threading.Tasks;
-using EduTask.Api.Models.DTOs;
+using Microsoft.AspNetCore.Mvc;
 
 namespace EduTask.Api.Controllers
 {
     [ApiController]
-    [Route("api/auth")]
+    [Route("api/[controller]")]
     public class AuthController : ControllerBase
     {
-        private readonly AuthService _authService;
+        private readonly EduTaskDbContext _context;
 
-        public AuthController(AuthService authService)
+        public AuthController(EduTaskDbContext context)
         {
-            _authService = authService;
+            _context = context;
         }
 
         [HttpPost("register")]
-        public async Task<IActionResult> Register([FromBody] RegisterUserDto dto)
+        public IActionResult Register([FromBody] RegisterUserDto registerUser)
         {
-            // Bez przypisywania do zmiennej, po prostu wywołanie metody asynchronicznej
-            await _authService.RegisterUser(dto);
-            return Ok("User registered successfully");
+            if (_context.Users.Any(u => u.Email == registerUser.Email))
+                return BadRequest("User with this email already exists.");
+
+            var user = new User
+            {
+                Email = registerUser.Email,
+                FirstName = registerUser.FirstName,
+                LastName = registerUser.LastName,
+                Password = registerUser.Password,
+                PhoneNumber = string.Empty,
+            };
+
+            _context.Users.Add(user);
+            _context.SaveChanges();
+            return Ok("User registered successfully.");
         }
 
         [HttpPost("login")]
-        public async Task<IActionResult> Login([FromBody] LoginUserDto dto)
+        public IActionResult Login([FromBody] LoginUserDto loginUser)
         {
-            var user = await _authService.LoginUser(dto);
-            return Ok(new { token = "jwt-token-placeholder", user.FullName });
+            var user = _context.Users.FirstOrDefault(u => u.Email == loginUser.Email && u.Password == loginUser.Password);
+            if (user == null)
+                return Unauthorized("Invalid credentials.");
+
+            return Ok(new { message = "Login successful", user.FullName });
+        }
+
+        [HttpPut("update/{id}")]
+        public IActionResult Update(int id, User updatedUser)
+        {
+            var user = _context.Users.Find(id);
+            if (user == null)
+                return NotFound("User not found.");
+
+            user.SetEmail(updatedUser.Email);
+            user.SetFirstName(updatedUser.FirstName);
+            user.SetLastName(updatedUser.LastName);
+            user.SetPhoneNumber(updatedUser.PhoneNumber);
+            user.SetPassword(updatedUser.Password);
+            //user.SetRole(updatedUser.Roles);
+
+            _context.SaveChanges();
+            return Ok("User updated successfully.");
+        }
+
+        [HttpDelete("delete/{id}")]
+        public IActionResult Delete(int id)
+        {
+            var user = _context.Users.Find(id);
+            if (user == null)
+                return NotFound("User not found.");
+
+            _context.Users.Remove(user);
+            _context.SaveChanges();
+            return Ok("User deleted successfully.");
         }
     }
 }

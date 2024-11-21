@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 
 })
 export class LayoutComponent {
+  menuVisible = false;
 
   menu = [
     {
@@ -31,9 +32,14 @@ export class LayoutComponent {
       routerLink: ['activity/consultations'],
     },
     {
-      label: 'Users',
+      label: 'Students',
       icon: 'pi pi-users',
-      routerLink: [''],
+      routerLink: ['users/students'],
+    },
+    {
+      label: 'Teachers',
+      icon: 'pi pi-users',
+      routerLink: ['users/teachers'],
     },
     {
       label: 'Settings',
@@ -45,6 +51,10 @@ export class LayoutComponent {
   constructor(
     private router: Router
     ) {}
+
+  toggleMenu() {
+    this.menuVisible = !this.menuVisible;
+  }
 
   onLogout(){
     this.router.navigate(['/login']);
