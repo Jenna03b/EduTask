@@ -21,4 +21,23 @@ export class StudentsComponent {
     { email: 'susan.clark@example.com', firstName: 'Susan', lastName: 'Clark', phoneNumber: '321-654-0987', roles: 'Student' },
     { email: 'emma.green@example.com', firstName: 'Emma', lastName: 'Green', phoneNumber: '567-890-1234', roles: 'Student' },
   ];
+
+  onShow() {
+  //   this.dialogRef = this.dialogService.open(EmployeeFormModalComponent, {
+  //     header: this.translate.instant(
+  //       user ? 'masterData.companyWorkforce.editEmployee' : 'masterData.companyWorkforce.addEmployee'
+  //     ),
+  //     maximizable: true,
+  //     dismissableMask: true,
+  //     width: '70%',
+  //     draggable: true,
+  //     resizable: true,
+  //     data: user?.id,
+  //   });
+
+  //   this.dialogRef.onClose.subscribe(() => {
+  //     this.getData();
+  //   });
+  // }
+  }
 }
