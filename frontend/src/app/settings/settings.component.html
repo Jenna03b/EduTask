@@ -1,1 +1,49 @@
-<p>settings works!</p>
+<div class="flex flex-column align-items-center p-4">
+    <div class="card w-full">
+        <div class="flex justify-content-between flex-wrap mb-4">
+            <div>
+                <h2 class="text-blue-800 mb-1">Profile</h2>
+                <p class="mt-2 text-sm text-400">Edit your profile data.</p>
+            </div>
+            <div>
+                <div>
+                    <button pButton label="Edit" icon="pi pi-pencil" (click)="onEdit()" *ngIf="!isEditing"></button>
+                    <button pButton label="Save" icon="pi pi-save" (click)="onSave()" *ngIf="isEditing"
+                        class="p-button-success"></button>
+                    <button pButton label="Cancel" icon="pi pi-times" (click)="onCancel()" *ngIf="isEditing"
+                        class="p-button-secondary ml-2"></button>
+                </div>
+            </div>
+        </div>
+
+
+        <form [formGroup]=" profileForm" class="grid gap-4 text-blue-800">
+            <div class="field col-6">
+                <label for="email">Email</label>
+                <input id="email" type="email" pInputText formControlName="email" />
+            </div>
+
+            <div class="field col-6">
+                <label for="firstName">First Name</label>
+                <input id="firstName" type="text" pInputText formControlName="firstName" [disabled]="!isEditing" />
+            </div>
+
+            <div class="field col-6">
+                <label for="lastName">Last Name</label>
+                <input id="lastName" type="text" pInputText formControlName="lastName" [disabled]="!isEditing" />
+            </div>
+
+            <div class="field col-6">
+                <label for="phoneNumber">Phone Number</label>
+                <input id="phoneNumber" type="text" pInputText formControlName="phoneNumber" [disabled]="!isEditing" />
+            </div>
+        </form>
+
+        <div class="flex justify-content-end mt-4">
+            <button pButton label="Delete my account" icon="pi pi-trash" (click)="deleteAccount()"
+                class="p-button-danger ml-2"></button>
+            <button pButton label="Change password" icon="pi pi-key" (click)="changePassword()"
+                class="p-button-secondary ml-2"></button>
+        </div>
+    </div>
+</div>
