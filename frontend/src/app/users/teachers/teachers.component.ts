@@ -24,4 +24,23 @@ export class TeachersComponent {
     ]
     
   ];
+
+  onShow() {
+    //   this.dialogRef = this.dialogService.open(EmployeeFormModalComponent, {
+    //     header: this.translate.instant(
+    //       user ? 'masterData.companyWorkforce.editEmployee' : 'masterData.companyWorkforce.addEmployee'
+    //     ),
+    //     maximizable: true,
+    //     dismissableMask: true,
+    //     width: '70%',
+    //     draggable: true,
+    //     resizable: true,
+    //     data: user?.id,
+    //   });
+  
+    //   this.dialogRef.onClose.subscribe(() => {
+    //     this.getData();
+    //   });
+    // }
+    }
 }
