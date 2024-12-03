@@ -1,6 +1,6 @@
 <div>
     <div class="card">
-        <h2 class="text-blue-800">To Do</h2>
+        <h2 class="text-blue-800">Exams</h2>
         <p-table [value]=" data" [paginator]="true" [rows]="10" [globalFilterFields]="['subject', 'topic', 'date']">
             <!-- <ng-template pTemplate="caption">
                 <div class="table-header">
@@ -36,6 +36,35 @@
         </p-table>
     </div>
     <div class="flex flex-row-reverse flex-wrap">
-        <button pButton type="button" icon="pi pi-plus mr-2" class="p-button-rounded p-button-success">Add</button>
+        <button pButton type="button" icon="pi pi-plus mr-2" class="p-button-rounded p-button-success"
+            (click)="onShow()">Add</button>
     </div>
+
+    <!-- Dialog -->
+    <p-dialog [(visible)]="displayDialog" [modal]="true" [style]="{ width: '600px' }" [dismissableMask]="true"
+        [draggable]="false" [resizable]="false">
+        <ng-template pTemplate="header">
+            <h3>Add New Exam</h3>
+        </ng-template>
+        <div class="p-fluid">
+            <div class="field">
+                <label for="subject">Subject</label>
+                <input id="subject" type="text" pInputText [(ngModel)]="newTask.subject" />
+            </div>
+            <div class="field">
+                <label for="topic">Topic</label>
+                <input id="topic" type="text" pInputText [(ngModel)]="newTask.topic" />
+            </div>
+            <div class="field">
+                <label for="date">Date</label>
+                <input id="date" type="date" pInputText [(ngModel)]="newTask.date" />
+            </div>
+        </div>
+        <ng-template pTemplate="footer">
+            <button pButton type="button" label="Save" icon="pi pi-check" class="p-button-success"
+                (click)="saveTask()"></button>
+            <button pButton type="button" label="Cancel" icon="pi pi-times" class="p-button-secondary"
+                (click)="hideDialog()"></button>
+        </ng-template>
+    </p-dialog>
 </div>

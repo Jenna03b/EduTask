@@ -11,6 +11,9 @@ import { CalendarModule } from 'primeng/calendar';
 import { FormsModule } from '@angular/forms';
 import { TreeTableModule } from 'primeng/treetable';
 import { TableModule } from 'primeng/table';
+import { DialogModule } from 'primeng/dialog';
+import { InputTextModule } from 'primeng/inputtext';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -26,8 +29,11 @@ import { TableModule } from 'primeng/table';
     CalendarModule,
     FormsModule,
     TreeTableModule,
-    TableModule
+    TableModule,
+    DialogModule,
+    InputTextModule
   ],
-  exports: [],
+  exports: [
+  ],
 })
 export class ActivityModule {}

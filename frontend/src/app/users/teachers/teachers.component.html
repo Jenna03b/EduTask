@@ -1,6 +1,6 @@
 <div>
     <div class="card">
-        <h2 class="text-blue-800">Students</h2>
+        <h2 class="text-blue-800">Teachers</h2>
         <p-table [value]=" data" [paginator]="true" [rows]="10"
             [globalFilterFields]="['email', 'firstName', 'lastName', 'phoneNumber', 'roles']">
             <!-- <ng-template pTemplate="caption">
@@ -40,6 +40,39 @@
         </p-table>
     </div>
     <div class="flex flex-row-reverse flex-wrap">
-        <button pButton type="button" icon="pi pi-plus mr-2" class="p-button-rounded p-button-success">Add</button>
+        <button pButton type="button" icon="pi pi-plus mr-2" class="p-button-rounded p-button-success"
+            (click)="onShow()">Add</button>
     </div>
+
+    <!-- Dialog -->
+    <p-dialog [(visible)]="displayDialog" [modal]="true" [style]="{ width: '600px' }" [dismissableMask]="true"
+        [draggable]="false" [resizable]="false">
+        <ng-template pTemplate="header">
+            <h3>Add New Teacher</h3>
+        </ng-template>
+        <div class="p-fluid">
+            <div class="field">
+                <label for="email">Email</label>
+                <input id="email" type="text" pInputText [(ngModel)]="newTeacher.email" />
+            </div>
+            <div class="field">
+                <label for="firstName">First Name</label>
+                <input id="firstName" type="text" pInputText [(ngModel)]="newTeacher.firstName" />
+            </div>
+            <div class="field">
+                <label for="lastName">Last Name</label>
+                <input id="lastName" type="text" pInputText [(ngModel)]="newTeacher.lastName" />
+            </div>
+            <div class="field">
+                <label for="phoneNumber">Phone Number</label>
+                <input id="phoneNumber" type="text" pInputText [(ngModel)]="newTeacher.phoneNumber" />
+            </div>
+        </div>
+        <ng-template pTemplate="footer">
+            <button pButton type="button" label="Save" icon="pi pi-check" class="p-button-success"
+                (click)="saveTask()"></button>
+            <button pButton type="button" label="Cancel" icon="pi pi-times" class="p-button-secondary"
+                (click)="hideDialog()"></button>
+        </ng-template>
+    </p-dialog>
 </div>

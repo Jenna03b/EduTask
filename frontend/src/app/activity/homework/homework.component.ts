@@ -4,11 +4,12 @@ import { Table } from 'primeng/table';
 @Component({
   selector: 'app-homework',
   templateUrl: './homework.component.html',
-  styleUrl: './homework.component.css'
+  styleUrls: ['./homework.component.css']
 })
 export class HomeworkComponent {
   @ViewChild('table') table!: Table;
-  
+  displayDialog: boolean = false;
+
   data = [
     { subject: 'Math', topic: 'Algebra Basics', progress: 'To Do', date: '2024-12-01' },
     { subject: 'Science', topic: 'Physics Experiments', progress: 'In Progress', date: '2024-11-25' },
@@ -17,14 +18,28 @@ export class HomeworkComponent {
     { subject: 'Math', topic: 'Trigonometry', progress: 'To Do', date: '2024-11-25' },
   ];
 
-  // clearFilter() {
-  //   this.table.clear();
-  // }
+  newTask = {
+    subject: '',
+    topic: '',
+    progress: 'To Do',
+    date: ''
+  };
 
-  // onGlobalFilter(event: Event) {
-  //   const inputElement = event.target as HTMLInputElement; // Rzutowanie na HTMLInputElement
-  //   const value = inputElement.value || ''; // Pobieranie wartości z inputa
-  //   this.table.filterGlobal(value, 'contains'); // Wywołanie funkcji filtrowania
-  // }
-  
+  onShow() {
+    this.newTask = { subject: '', topic: '', progress: 'To Do', date: '' }; // Reset form
+    this.displayDialog = true;
+  }
+
+  hideDialog() {
+    this.displayDialog = false;
+  }
+
+  saveTask() {
+    if (this.newTask.subject && this.newTask.topic && this.newTask.date) {
+      this.data.push({ ...this.newTask });
+      this.hideDialog();
+    } else {
+      alert('Please fill out all fields.');
+    }
+  }
 }

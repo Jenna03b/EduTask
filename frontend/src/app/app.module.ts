@@ -12,6 +12,7 @@ import { TableModule } from 'primeng/table';
 import { SettingsComponent } from './settings/settings.component';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 @NgModule({
@@ -22,6 +23,7 @@ import { InputTextModule } from 'primeng/inputtext';
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
     PasswordModule,
     HttpClientModule,

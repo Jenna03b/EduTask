@@ -11,3 +11,8 @@
   align-items: center;
   padding-bottom: 1em;
 }
+
+::ng-deep .p-dialog-mask {
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(4px);
+}

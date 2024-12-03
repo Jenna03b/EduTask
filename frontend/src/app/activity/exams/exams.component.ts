@@ -8,6 +8,7 @@ import { Table } from 'primeng/table';
 })
 export class ExamsComponent {
   @ViewChild('table') table!: Table;
+  displayDialog: boolean = false;
   
   data = [
     { subject: 'Geography', topic: 'Mountain Ranges', date: '2024-12-05' },
@@ -16,4 +17,28 @@ export class ExamsComponent {
     { subject: 'Math', topic: 'Calculus - Derivatives', date: '2024-11-30' },
     { subject: 'Physics', topic: 'Newton’s Laws of Motion', date: '2024-12-03' },
   ];
+
+  newTask = {
+    subject: '',
+    topic: '',
+    date: ''
+  };
+
+  onShow() {
+    this.newTask = { subject: '', topic: '', date: '' }; // Reset form
+    this.displayDialog = true;
+  }
+
+  hideDialog() {
+    this.displayDialog = false;
+  }
+
+  saveTask() {
+    if (this.newTask.subject && this.newTask.topic && this.newTask.date) {
+      this.data.push({ ...this.newTask });
+      this.hideDialog();
+    } else {
+      alert('Please fill out all fields.');
+    }
+  }
 }

@@ -1,6 +1,8 @@
 import { Component, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
+import { DialogModule } from 'primeng/dialog';
+import { InputTextModule } from 'primeng/inputtext';
 import { Table, TableModule } from 'primeng/table';
 import { TreeTableModule } from 'primeng/treetable';
 
@@ -9,10 +11,11 @@ import { TreeTableModule } from 'primeng/treetable';
   templateUrl: './students.component.html',
   styleUrl: './students.component.css',
   standalone: true,
-  imports: [FormsModule, TreeTableModule, TableModule, ButtonModule],
+  imports: [FormsModule, TreeTableModule, TableModule, ButtonModule, DialogModule, InputTextModule],
 })
 export class StudentsComponent {
   @ViewChild('table') table!: Table;
+  displayDialog: boolean = false;
   
   data = [
     { email: 'john.smith@example.com', firstName: 'John', lastName: 'Smith', phoneNumber: '987-654-3210', roles: 'Student' },
@@ -22,22 +25,29 @@ export class StudentsComponent {
     { email: 'emma.green@example.com', firstName: 'Emma', lastName: 'Green', phoneNumber: '567-890-1234', roles: 'Student' },
   ];
 
-  onShow() {
-  //   this.dialogRef = this.dialogService.open(EmployeeFormModalComponent, {
-  //     header: this.translate.instant(
-  //       user ? 'masterData.companyWorkforce.editEmployee' : 'masterData.companyWorkforce.addEmployee'
-  //     ),
-  //     maximizable: true,
-  //     dismissableMask: true,
-  //     width: '70%',
-  //     draggable: true,
-  //     resizable: true,
-  //     data: user?.id,
-  //   });
+  newStudent = {
+    email: '',
+    firstName: '',
+    lastName: '',
+    phoneNumber: '',
+    roles: 'Student'
+  };
 
-  //   this.dialogRef.onClose.subscribe(() => {
-  //     this.getData();
-  //   });
-  // }
+  onShow() {
+    this.newStudent = { email: '', firstName: '', lastName: '', phoneNumber: '', roles: 'Student' }; 
+    this.displayDialog = true;
+  }
+
+  hideDialog() {
+    this.displayDialog = false;
+  }
+
+  saveTask() {
+    if (this.newStudent.email && this.newStudent.firstName && this.newStudent.lastName && this.newStudent.phoneNumber) {
+      this.data.push({ ...this.newStudent });
+      this.hideDialog();
+    } else {
+      alert('Please fill out all fields.');
+    }
   }
 }

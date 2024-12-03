@@ -40,7 +40,39 @@
         </p-table>
     </div>
     <div class="flex flex-row-reverse flex-wrap">
-        <button pButton type="button" (click)="onShow()" icon="pi pi-plus mr-2"
-            class="p-button-rounded p-button-success">Add</button>
+        <button pButton type="button" icon="pi pi-plus mr-2" class="p-button-rounded p-button-success"
+            (click)="onShow()">Add</button>
     </div>
+
+    <!-- Dialog -->
+    <p-dialog [(visible)]="displayDialog" [modal]="true" [style]="{ width: '600px' }" [dismissableMask]="true"
+        [draggable]="false" [resizable]="false">
+        <ng-template pTemplate="header">
+            <h3>Add New Student</h3>
+        </ng-template>
+        <div class="p-fluid">
+            <div class="field">
+                <label for="email">Email</label>
+                <input id="email" type="text" pInputText [(ngModel)]="newStudent.email" />
+            </div>
+            <div class="field">
+                <label for="firstName">First Name</label>
+                <input id="firstName" type="text" pInputText [(ngModel)]="newStudent.firstName" />
+            </div>
+            <div class="field">
+                <label for="lastName">Last Name</label>
+                <input id="lastName" type="text" pInputText [(ngModel)]="newStudent.lastName" />
+            </div>
+            <div class="field">
+                <label for="phoneNumber">Phone Number</label>
+                <input id="phoneNumber" type="text" pInputText [(ngModel)]="newStudent.phoneNumber" />
+            </div>
+        </div>
+        <ng-template pTemplate="footer">
+            <button pButton type="button" label="Save" icon="pi pi-check" class="p-button-success"
+                (click)="saveTask()"></button>
+            <button pButton type="button" label="Cancel" icon="pi pi-times" class="p-button-secondary"
+                (click)="hideDialog()"></button>
+        </ng-template>
+    </p-dialog>
 </div>
