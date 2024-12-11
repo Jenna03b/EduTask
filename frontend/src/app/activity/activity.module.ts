@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 
 import { HomeComponent } from './home/home.component';
-import { HomeworkComponent } from './homework/homework.component';
+import { HomeworksComponent } from './homeworks/homeworks.component';
 import { ExamsComponent } from './exams/exams.component';
 import { ConsultationsComponent } from './consultations/consultations.component';
 import { ActivityRoutingModule } from './activity-routing.module';
@@ -13,14 +13,16 @@ import { TreeTableModule } from 'primeng/treetable';
 import { TableModule } from 'primeng/table';
 import { DialogModule } from 'primeng/dialog';
 import { InputTextModule } from 'primeng/inputtext';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ActivityService } from '../services/activity.service';
+import { DialogService } from 'primeng/dynamicdialog';
+import { DropdownModule } from 'primeng/dropdown';
 
 @NgModule({
   declarations: [
     HomeComponent,
-    HomeworkComponent,
+    HomeworksComponent,
     ExamsComponent,
-    ConsultationsComponent
+    ConsultationsComponent,
   ],
   imports: [
     ActivityRoutingModule,
@@ -31,9 +33,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     TreeTableModule,
     TableModule,
     DialogModule,
-    InputTextModule
+    InputTextModule,
+    DropdownModule
   ],
   exports: [
   ],
+  providers: [ActivityService, DialogService],
 })
 export class ActivityModule {}

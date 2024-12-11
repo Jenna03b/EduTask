@@ -1,53 +1,64 @@
-import { Component, ViewChild } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { ButtonModule } from 'primeng/button';
-import { DialogModule } from 'primeng/dialog';
-import { InputTextModule } from 'primeng/inputtext';
-import { Table, TableModule } from 'primeng/table';
-import { TreeTableModule } from 'primeng/treetable';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { User, UserService } from '../../services/users.service';
 
 @Component({
   selector: 'app-students',
   templateUrl: './students.component.html',
   styleUrl: './students.component.css',
-  standalone: true,
-  imports: [FormsModule, TreeTableModule, TableModule, ButtonModule, DialogModule, InputTextModule],
+ 
 })
-export class StudentsComponent {
-  @ViewChild('table') table!: Table;
+export class StudentsComponent implements OnInit {
+  students: User[] = [];
   displayDialog: boolean = false;
-  
-  data = [
-    { email: 'john.smith@example.com', firstName: 'John', lastName: 'Smith', phoneNumber: '987-654-3210', roles: 'Student' },
-    { email: 'alice.wilson@example.com', firstName: 'Alice', lastName: 'Wilson', phoneNumber: '555-123-4567', roles: 'Student' },
-    { email: 'linda.brown@example.com', firstName: 'Linda', lastName: 'Brown', phoneNumber: '456-789-0123', roles: 'Student' },
-    { email: 'susan.clark@example.com', firstName: 'Susan', lastName: 'Clark', phoneNumber: '321-654-0987', roles: 'Student' },
-    { email: 'emma.green@example.com', firstName: 'Emma', lastName: 'Green', phoneNumber: '567-890-1234', roles: 'Student' },
-  ];
+  currentStudent: User = { id: 0, firstName: '', lastName: '', email: '', phoneNumber: '', role: 'Student' };
+  isEditMode: boolean = false;
 
-  newStudent = {
-    email: '',
-    firstName: '',
-    lastName: '',
-    phoneNumber: '',
-    roles: 'Student'
-  };
+  constructor(private userService: UserService) {}
 
-  onShow() {
-    this.newStudent = { email: '', firstName: '', lastName: '', phoneNumber: '', roles: 'Student' }; 
+  ngOnInit(): void {
+    this.loadStudents();
+  }
+
+  loadStudents(): void {
+    this.userService.getUsers('Student').subscribe((data) => {
+      this.students = data;
+    });
+  }
+
+  openDialog(student?: User): void {
+    this.isEditMode = false;
+    if (student) {
+      this.currentStudent = { ...student };
+    } else {
+      this.currentStudent = { id: 0, firstName: '', lastName: '', email: '', phoneNumber: '', role: 'Student' };
+    }
     this.displayDialog = true;
   }
 
-  hideDialog() {
+  openNewStudentDialog(): void {
+    this.openDialog();
+  }
+
+  saveStudent(): void {
+    if (this.currentStudent.id === 0) {
+      this.userService.createUser(this.currentStudent).subscribe(() => this.loadStudents());
+    } else {
+      this.userService.updateUser(this.currentStudent).subscribe(() => this.loadStudents());
+    }
     this.displayDialog = false;
   }
 
-  saveTask() {
-    if (this.newStudent.email && this.newStudent.firstName && this.newStudent.lastName && this.newStudent.phoneNumber) {
-      this.data.push({ ...this.newStudent });
-      this.hideDialog();
-    } else {
-      alert('Please fill out all fields.');
+  deleteStudent(id: number): void {
+    if (confirm('Are you sure you want to delete this student?')) {
+      this.userService.deleteUser(id).subscribe(() => this.loadStudents());
     }
+  }
+
+  enableEdit() {
+    this.isEditMode = true;
+  }
+
+  cancelEdit(): void {
+    this.displayDialog = false;
   }
 }

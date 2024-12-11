@@ -19,7 +19,7 @@ export class LayoutComponent {
     {
       label: 'Homework',
       icon: 'pi pi-briefcase',
-      routerLink: ['activity/homework'],
+      routerLink: ['activity/homeworks'],
     },
     {
       label: 'Exams',

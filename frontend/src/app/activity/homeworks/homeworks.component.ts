@@ -1,33 +1,23 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { Activity } from '../../models/activity.model';
-import { ActivityService } from '../../services/activity.service';
-import { MessageService } from 'primeng/api';
+import { Component, OnInit } from '@angular/core';
 import { DialogService } from 'primeng/dynamicdialog';
-import { FormGroup } from '@angular/forms';
+import { MessageService } from 'primeng/api';
+import { ActivityService } from '../../services/activity.service';
+import { Activity } from '../../models/activity.model';
 
 @Component({
-  selector: 'app-consultations',
-  templateUrl: './consultations.component.html',
-  styleUrl: './consultations.component.css',
+  selector: 'app-homeworks',
+  templateUrl: './homeworks.component.html',
+  styleUrls: ['./homeworks.component.css'],
   providers: [DialogService, MessageService]
-
 })
-export class ConsultationsComponent implements OnInit {
+export class HomeworksComponent implements OnInit {
   activities: Activity[] = [];
   selectedActivity: Activity | null = null;
   displayDialog: boolean = false;
   isEditMode: boolean = false;
-  
-  // data = [
-  //   { subject: 'Chemistry', topic: 'Periodic Table Basics', date: '2024-11-28' },
-  // { subject: 'English', topic: 'Essay Writing', date: '2024-12-07' },
-  // { subject: 'History', topic: 'Ancient Egypt', date: '2024-12-12' },
-  // { subject: 'Art', topic: 'Impressionist Paintings', date: '2024-12-01' },
-  // { subject: 'Physical Education', topic: 'Basketball Rules', date: '2024-11-29' }
-  // ];
 
   newActivity: Partial<Activity> = {
-    type: 'Consultation',
+    type: 'Homework',
     subject: '',
     topic: '',
     notes: '',
@@ -35,8 +25,14 @@ export class ConsultationsComponent implements OnInit {
     date: ''
   };
 
-  constructor(private activityService: ActivityService, private messageService: MessageService) {}
+  progressOptions = [
+    { label: 'To Do', value: 'ToDo' },
+    { label: 'In Progress', value: 'InProgress' },
+    { label: 'Done', value: 'Done' }
+  ];
 
+  
+  constructor(private activityService: ActivityService, private messageService: MessageService) {}
 
   ngOnInit() {
     this.loadActivities();
@@ -44,7 +40,7 @@ export class ConsultationsComponent implements OnInit {
 
   loadActivities() {
     this.activityService.getActivities().subscribe(data => {
-      this.activities = data.filter(activity => activity.type === 'Consultation');
+      this.activities = data.filter(activity => activity.type === 'Homework');
     });
   }
 
@@ -52,7 +48,7 @@ export class ConsultationsComponent implements OnInit {
     this.isEditMode = false;
     this.newActivity = activity
       ? { ...activity, id: activity.id || 0, date: this.formatDateForInput(activity.date || '') }
-      : { type: 'Consultation', progress: 'ToDo', subject: '', topic: '', date: '', id: 0 };
+      : { type: 'Homework', progress: 'ToDo', subject: '', topic: '', date: '', id: 0 };
     this.displayDialog = true;
   }
   
@@ -76,13 +72,10 @@ export class ConsultationsComponent implements OnInit {
 
   openNewActivityDialog() {
     this.isEditMode = true;
-    this.newActivity = { type: 'Consultation', progress: 'ToDo', subject: '', topic: '', date: '' };
+    this.newActivity = { type: 'Homework', progress: 'ToDo', subject: '', topic: '', date: '' };
     this.displayDialog = true;
   }
-
-  onEdit(): void {
-    this.isEditMode = true;
-  }
+  
 
   saveActivity() {
     if (!this.newActivity.type || !this.newActivity.subject || !this.newActivity.topic || !this.newActivity.date || !this.newActivity.progress) {
@@ -111,6 +104,8 @@ export class ConsultationsComponent implements OnInit {
     );
   }
   
+
+
   deleteActivity(activityId: number) {
     this.activityService.deleteActivity(activityId).subscribe(() => {
       this.messageService.add({ severity: 'warn', summary: 'Deleted', detail: 'Activity deleted successfully' });

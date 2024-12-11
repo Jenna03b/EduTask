@@ -2,11 +2,11 @@
 
 namespace EduTask.Api.Models
 {
-    //public enum UserRole
-    //{
-    //    Student,
-    //    Teacher
-    //}
+    public enum UserRole
+    {
+        Student,
+        Teacher
+    }
     public class User
     {
         [Key]
@@ -16,7 +16,8 @@ namespace EduTask.Api.Models
         public string LastName { get; set; }
         public string PhoneNumber { get; set; } = string.Empty;
         public string Password { get; set; }
-        //public UserRole Roles { get; set; }
+        public ICollection<Activity> Activities { get; set; }
+        public UserRole Role { get; set; }
         public string FullName => $"{FirstName} {LastName}";
 
         public User(int id, string email, string firstName, string lastName, string phoneNumber, string password)

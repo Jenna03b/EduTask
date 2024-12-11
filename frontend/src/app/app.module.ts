@@ -13,13 +13,16 @@ import { SettingsComponent } from './settings/settings.component';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { StudentsComponent } from './users/students/students.component';
+import { DialogModule } from 'primeng/dialog';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     LayoutComponent,
-    SettingsComponent
+    SettingsComponent,
+    StudentsComponent
   ],
   imports: [
     BrowserModule,
@@ -32,7 +35,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     TableModule,
     ReactiveFormsModule,
     ButtonModule,
-    InputTextModule
+    InputTextModule,
+    DialogModule
   ],
   providers: [],
   bootstrap: [AppComponent]

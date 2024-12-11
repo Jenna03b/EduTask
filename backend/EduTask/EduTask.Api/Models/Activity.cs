@@ -11,15 +11,17 @@ namespace EduTask.Api.Models
     }
     public class Activity
     {
-        
+        public int Id { get; private set; }
         public string Type { get; private set; }
         public string Subject { get; private set; }
         public string Topic { get; private set; }
         public string Notes { get; private set; }
         public ProgressStatus Progress { get; private set; }
         public DateTime Date { get; private set; }
+        public int UserId { get; private set; }
+        public User User { get; private set; }
 
-        public Activity(string type, string subject, string topic, string notes, ProgressStatus progress, DateTime date)
+        public Activity(string type, string subject, string topic, string notes, ProgressStatus progress, DateTime date, int userId)
         {
             SetType(type);
             SetSubject(subject);
@@ -27,6 +29,7 @@ namespace EduTask.Api.Models
             SetTopic(topic);
             SetNotes(notes);
             SetProgress(progress);
+            UserId = userId;
         }
 
         public void SetType(string type)
