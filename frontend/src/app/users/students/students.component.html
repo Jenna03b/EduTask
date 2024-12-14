@@ -42,16 +42,17 @@
             <div class="p-field mb-3">
                 <label for="firstName">First Name</label>
                 <input id="firstName" type="text" pInputText [(ngModel)]="currentStudent.firstName"
-                    [disabled]="!isEditMode" />
+                    [disabled]="!isEditMode" [ngClass]="{'p-invalid': isFieldInvalid('firstName')}" />
             </div>
             <div class="p-field mb-3">
                 <label for="lastName">Last Name</label>
                 <input id="lastName" type="text" pInputText [(ngModel)]="currentStudent.lastName"
-                    [disabled]="!isEditMode" />
+                    [disabled]="!isEditMode" [ngClass]="{'p-invalid': isFieldInvalid('lastName')}" />
             </div>
             <div class="p-field mb-3">
                 <label for="email">Email</label>
-                <input id="email" type="email" pInputText [(ngModel)]="currentStudent.email" [disabled]="!isEditMode" />
+                <input id="email" type="email" pInputText [(ngModel)]="currentStudent.email" [disabled]="!isEditMode"
+                    [ngClass]="{'p-invalid': isFieldInvalid('email')}" />
             </div>
             <div class="p-field mb-3">
                 <label for="phoneNumber">Phone Number</label>
@@ -67,3 +68,5 @@
         </p-footer>
     </div>
 </p-dialog>
+
+<p-confirmDialog></p-confirmDialog>

@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { MessageService } from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primeng/api';
 import { DialogService } from 'primeng/dynamicdialog';
 import { Table } from 'primeng/table';
 import { Activity } from '../../models/activity.model';
@@ -40,7 +40,7 @@ export class HomeComponent {
     { label: 'Done', value: 'Done' }
   ];
 
-  constructor(private activityService: ActivityService, private messageService: MessageService) {}
+  constructor(private activityService: ActivityService, private messageService: MessageService, private confirmationService: ConfirmationService) {}
 
   ngOnInit() {
     this.loadActivities();
@@ -52,9 +52,18 @@ export class HomeComponent {
     });
   }
 
+  confirmDeleteActivity(activityId: number) {
+    this.confirmationService.confirm({
+      message: 'Are you sure you want to delete this activity?',
+      accept: () => {
+        this.deleteActivity(activityId);
+      }
+    });
+  }
+
   deleteActivity(activityId: number) {
     this.activityService.deleteActivity(activityId).subscribe(() => {
-      this.messageService.add({ severity: 'warn', summary: 'Deleted', detail: 'Activity deleted successfully' });
+      this.messageService.add({ severity: 'warn', summary: 'Deleted', detail: 'Activity deleted successfully', life: 3000 });
       this.loadActivities();
     });
   }

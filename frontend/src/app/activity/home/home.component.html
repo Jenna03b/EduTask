@@ -23,9 +23,11 @@
             <td>{{ activity.topic }}</td>
             <td>{{ activity.date | date }}</td>
             <td>
-                <button pButton (click)="deleteActivity(activity.id)"
+                <button pButton (click)="confirmDeleteActivity(activity.id)"
                     class="pi pi-trash p-button-danger p-button-text"></button>
             </td>
         </tr>
     </ng-template>
 </p-table>
+
+<p-confirmDialog></p-confirmDialog>

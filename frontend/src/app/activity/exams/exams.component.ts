@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { MessageService } from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primeng/api';
 import { DialogService } from 'primeng/dynamicdialog';
 import { Table } from 'primeng/table';
 import { Activity } from '../../models/activity.model';
@@ -16,6 +16,7 @@ export class ExamsComponent {
   selectedActivity: Activity | null = null;
   displayDialog: boolean = false;
   isEditMode: boolean = false;
+  validationErrors: { [key: string]: boolean } = {};
   
   // data = [
   //   { subject: 'Geography', topic: 'Mountain Ranges', date: '2024-12-05' },
@@ -31,7 +32,7 @@ export class ExamsComponent {
     topic: '',
     notes: '',
     progress: 'ToDo',
-    date: ''
+    date: undefined
   };
 
   progressOptions = [
@@ -41,7 +42,7 @@ export class ExamsComponent {
   ];
 
   
-  constructor(private activityService: ActivityService, private messageService: MessageService) {}
+  constructor(private activityService: ActivityService, private messageService: MessageService, private confirmationService: ConfirmationService) {}
 
   ngOnInit() {
     this.loadActivities();
@@ -57,7 +58,7 @@ export class ExamsComponent {
     this.isEditMode = false;
     this.newActivity = activity
       ? { ...activity, id: activity.id || 0, date: this.formatDateForInput(activity.date || '') }
-      : { type: 'Consultation', progress: 'ToDo', subject: '', topic: '', date: '', id: 0 };
+      : { type: 'Exam', progress: 'ToDo', subject: '', topic: '', date: '', id: 0 };
     this.displayDialog = true;
   }
   
@@ -85,31 +86,51 @@ export class ExamsComponent {
     this.displayDialog = true;
   }
 
+  isFieldInvalid(field: string): boolean {
+    return !!this.validationErrors[field];
+  }
+
+  validateFields(): boolean {
+    this.validationErrors = {};
+    if (!this.newActivity.subject) this.validationErrors['subject'] = true;
+    if (!this.newActivity.date) this.validationErrors['date'] = true;
+    return Object.keys(this.validationErrors).length === 0;
+  }
+
   saveActivity() {
-    if (!this.newActivity.type || !this.newActivity.subject || !this.newActivity.topic || !this.newActivity.date || !this.newActivity.progress) {
-      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'All fields are required' });
-      return;
-    }
-  
-    const activityPayload = {
-      type: this.newActivity.type,
-      subject: this.newActivity.subject,
-      topic: this.newActivity.topic,
-      notes: this.newActivity.notes || '',
-      progress: this.newActivity.progress,
-      date: new Date(this.newActivity.date).toISOString()
-    };
-  
-    this.activityService.createActivity(activityPayload).subscribe(
-      () => {
-        this.messageService.add({ severity: 'success', summary: 'Created', detail: 'Activity created successfully' });
-        this.loadActivities();
-        this.displayDialog = false;
-      },
-      (error) => {
-        console.error('Error creating activity:', error);
+      if (!this.validateFields()) {
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'All required fields must be filled' });
+        return;
       }
-    );
+    
+      const activityPayload: Partial<Activity> = {
+        type: this.newActivity.type,
+        subject: this.newActivity.subject,
+        topic: this.newActivity.topic,
+        notes: this.newActivity.notes || '',
+        progress: this.newActivity.progress,
+        date: this.newActivity.date ? new Date(this.newActivity.date).toISOString() : undefined
+      };
+    
+      this.activityService.createActivity(activityPayload).subscribe(
+        () => {
+          this.messageService.add({ severity: 'success', summary: 'Created', detail: 'Activity created successfully', life: 3000 });
+          this.loadActivities();
+          this.displayDialog = false;
+        },
+        (error) => {
+          console.error('Error creating activity:', error);
+        }
+      );
+    }
+
+  confirmDeleteActivity(activityId: number) {
+    this.confirmationService.confirm({
+      message: 'Are you sure you want to delete this activity?',
+      accept: () => {
+        this.deleteActivity(activityId);
+      }
+    });
   }
 
   deleteActivity(activityId: number) {

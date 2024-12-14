@@ -22,7 +22,7 @@
             <td>
                 <button pButton (click)="openDialog(activity)"
                     class="pi pi-pencil p-button-primary p-button-text"></button>
-                <button pButton (click)="deleteActivity(activity.id)"
+                <button pButton (click)="confirmDeleteActivity(activity.id)"
                     class="pi pi-trash p-button-danger p-button-text"></button>
             </td>
         </tr>
@@ -40,7 +40,8 @@
         <div class="p-fluid">
             <div class="p-field mb-3">
                 <label for="subject">Subject</label>
-                <input id="subject" type="text" pInputText [(ngModel)]="newActivity.subject" [disabled]="!isEditMode" />
+                <input id="subject" type="text" pInputText [(ngModel)]="newActivity.subject" [disabled]="!isEditMode"
+                    [ngClass]="{'p-invalid': isFieldInvalid('subject')}" />
             </div>
             <div class="p-field mb-3">
                 <label for="topic">Topic</label>
@@ -48,7 +49,8 @@
             </div>
             <div class="p-field mb-3">
                 <label for="date">Date</label>
-                <input id="date" type="date" pInputText [(ngModel)]="newActivity.date" [disabled]="!isEditMode" />
+                <input id="date" type="date" pInputText [(ngModel)]="newActivity.date" [disabled]="!isEditMode"
+                    [ngClass]="{'p-invalid': isFieldInvalid('date')}" />
             </div>
         </div>
         <p-footer class="flex justify-content-end">
@@ -59,3 +61,5 @@
         </p-footer>
     </div>
 </p-dialog>
+
+<p-confirmDialog></p-confirmDialog>

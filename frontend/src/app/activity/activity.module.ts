@@ -16,6 +16,8 @@ import { InputTextModule } from 'primeng/inputtext';
 import { ActivityService } from '../services/activity.service';
 import { DialogService } from 'primeng/dynamicdialog';
 import { DropdownModule } from 'primeng/dropdown';
+import { ConfirmDialog, ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ConfirmationService } from 'primeng/api';
 
 @NgModule({
   declarations: [
@@ -34,10 +36,12 @@ import { DropdownModule } from 'primeng/dropdown';
     TableModule,
     DialogModule,
     InputTextModule,
-    DropdownModule
+    DropdownModule,
+    ConfirmDialogModule,
+
   ],
   exports: [
   ],
-  providers: [ActivityService, DialogService],
+  providers: [ActivityService, DialogService, ConfirmDialog, ConfirmationService ],
 })
 export class ActivityModule {}

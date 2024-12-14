@@ -15,6 +15,8 @@ import { InputTextModule } from 'primeng/inputtext';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { StudentsComponent } from './users/students/students.component';
 import { DialogModule } from 'primeng/dialog';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ConfirmationService } from 'primeng/api';
 
 
 @NgModule({
@@ -22,7 +24,7 @@ import { DialogModule } from 'primeng/dialog';
     AppComponent,
     LayoutComponent,
     SettingsComponent,
-    StudentsComponent
+    StudentsComponent,
   ],
   imports: [
     BrowserModule,
@@ -36,9 +38,10 @@ import { DialogModule } from 'primeng/dialog';
     ReactiveFormsModule,
     ButtonModule,
     InputTextModule,
-    DialogModule
+    DialogModule,
+    ConfirmDialogModule
   ],
-  providers: [],
+  providers: [ConfirmationService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

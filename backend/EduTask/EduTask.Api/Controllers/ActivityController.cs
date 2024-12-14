@@ -30,14 +30,14 @@ namespace EduTask.Api.Controllers
         {
             Console.WriteLine($"Received DTO: {System.Text.Json.JsonSerializer.Serialize(dto)}");
 
-            if (!ModelState.IsValid)
-            {
-                foreach (var error in ModelState)
-                {
-                    Console.WriteLine($"{error.Key}: {string.Join(", ", error.Value.Errors.Select(e => e.ErrorMessage))}");
-                }
-                return BadRequest(ModelState);
-            }
+            //if (!ModelState.IsValid)
+            //{
+            //    foreach (var error in ModelState)
+            //    {
+            //        Console.WriteLine($"{error.Key}: {string.Join(", ", error.Value.Errors.Select(e => e.ErrorMessage))}");
+            //    }
+            //    return BadRequest(ModelState);
+            //}
 
             await _activityService.CreateActivity(dto, 1); // Tymczasowy userId
             return Ok("Activity created successfully");
