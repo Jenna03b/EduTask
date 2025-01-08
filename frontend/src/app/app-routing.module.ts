@@ -21,7 +21,7 @@ const routes: Routes = [
       },
       { path: 'users/students', component: StudentsComponent },
       { path: 'users/teachers', component: TeachersComponent },
-      // { path: 'settings', component: SettingsComponent },
+      { path: 'settings', component: SettingsComponent },
     ]
   },
   { path: '**', redirectTo: '/login' }
